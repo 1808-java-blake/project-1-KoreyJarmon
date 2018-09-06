@@ -1,0 +1,121 @@
+CREATE TABLE ers.ers_users
+(
+    ers_users_id integer NOT NULL DEFAULT nextval('project1.ers_users_ers_users_id_seq'::regclass),
+    ers_username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    ers_password character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    user_first_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    user_last_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    user_email character varying(150) COLLATE pg_catalog."default" NOT NULL,
+    user_role_id integer NOT NULL DEFAULT nextval('project1.ers_users_user_role_id_seq'::regclass),
+    CONSTRAINT ers_users_pk PRIMARY KEY (ers_users_id),
+    CONSTRAINT ers_users_unv1 UNIQUE (ers_username)
+,
+    CONSTRAINT ers_users_unv2 UNIQUE (user_email)
+,
+    CONSTRAINT user_roles_fk FOREIGN KEY (user_role_id)
+        REFERENCES project1.ers_user_roles (ers_user_role_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE ers.ers_users
+    OWNER to postgres;
+
+
+
+
+
+CREATE TABLE ers.ers_user_roles
+(
+    ers_user_role_id integer NOT NULL DEFAULT nextval('project1.ers_user_roles_ers_user_role_id_seq'::regclass),
+    user_role character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT ers_user_roles_pk PRIMARY KEY (ers_user_role_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE project1.ers_user_roles
+    OWNER to postgres;
+
+
+
+
+
+CREATE TABLE ers.ers_reimbursement_type
+(
+    reimb_type_id integer NOT NULL DEFAULT nextval('project1.ers_reimbursement_type_reimb_type_id_seq'::regclass),
+    reimb_type character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT reimb_type_pk PRIMARY KEY (reimb_type_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE project1.ers_reimbursement_type
+    OWNER to postgres;
+
+
+
+
+
+CREATE TABLE ers.ers_reimbursement_status
+(
+    reimb_status_id integer NOT NULL DEFAULT nextval('project1.ers_reimbursement_status_reimb_status_id_seq'::regclass),
+    reimb_status character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT reimb_status_pk PRIMARY KEY (reimb_status_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE project1.ers_reimbursement_status
+    OWNER to postgres;
+
+
+
+
+
+CREATE TABLE ers.ers_reimbursement
+(
+    reimb_id integer NOT NULL DEFAULT nextval('project1.ers_reimbursement_reimb_id_seq'::regclass),
+    reimb_amount integer NOT NULL,
+    reimb_submitted timestamp without time zone NOT NULL,
+    reimb_resolved timestamp without time zone,
+    reimb_description character varying(250) COLLATE pg_catalog."default",
+    reimb_author integer NOT NULL,
+    reimb_resolver integer,
+    reimb_status_id integer NOT NULL,
+    reimb_type_id integer NOT NULL,
+    CONSTRAINT ers_reimbursement_pk PRIMARY KEY (reimb_id),
+    CONSTRAINT ers_reimbursement_status_fk FOREIGN KEY (reimb_status_id)
+        REFERENCES project1.ers_reimbursement_status (reimb_status_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ers_reimbursement_type_fk FOREIGN KEY (reimb_type_id)
+        REFERENCES project1.ers_reimbursement_type (reimb_type_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ers_users_fk_auth FOREIGN KEY (reimb_author)
+        REFERENCES project1.ers_users (ers_users_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ers_users_fk_reslver FOREIGN KEY (reimb_resolver)
+        REFERENCES project1.ers_users (ers_users_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE project1.ers_reimbursement
+    OWNER to postgres;

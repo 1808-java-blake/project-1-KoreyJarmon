@@ -1,0 +1,16 @@
+#movie-table-container {
+  margin-top: 2.5em;
+}
+
+#approve-button {
+  width: 10em;
+}
+
+#deny-button {
+  width: 10em;
+}
+
+#input-description{
+  width: 35em;
+
+}
