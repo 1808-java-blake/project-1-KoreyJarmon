@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import { movieRouter } from './routers/reimb-router';
+import { reimbRouter } from './routers/reimb-router';
 import { userRouter } from './routers/user-router';
 
 // create the app object from express
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 
 // allows cors headers
 app.use((req, resp, next) => {
-  resp.header("Access-Control-Allow-Origin", "http://localhost:9001");
+  resp.header("Access-Control-Allow-Origin", "http://localhost:3000");
   resp.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   resp.header("Access-Control-Allow-Credentials", "true");
   next();
@@ -53,7 +53,7 @@ app.use((req, resp, next) => {
 /*********************************************************************************************
  * API Routers
  ********************************************************************************************/
-app.use('/movies', movieRouter);
+app.use('/reimb', reimbRouter);
 app.use('/users', userRouter);
 
 const server = app.listen(port, () => {

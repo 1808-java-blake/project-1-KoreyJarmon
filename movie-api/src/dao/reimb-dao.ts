@@ -45,13 +45,16 @@ export async function createReimbursement(reimbursement, id): Promise<number> {
   try {
     const respr = await client.query(`SELECT reimb_type_id FROM ers.ers_reimbursement_type 
       WHERE reimb_type = $1`,[ reimbursement.reimbursementType])
+      console.log('rembisjfdkljsklgfjdfkljlKLDSAJDFKLSJKKSDJLFKD');
+    
+      
       reimbursement.type_td = respr.rows[0].reimb_type_id;
     const resp = await client.query(
       `INSERT INTO ers.ers_reimbursement(
         reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id)
         VALUES ($1, CURRENT_TIMESTAMP, $2, $3, 1, $4)
         RETURNING reimb_id`, [+reimbursement.amount, reimbursement.description, 
-          id,  reimbursement.type_td]);
+         id, reimbursement.type_td]);
     return resp.rows[0].reimb_id;
   } finally {
     client.release();
