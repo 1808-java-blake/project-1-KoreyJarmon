@@ -40,7 +40,8 @@ export class CreateReimbursementComponent extends React.Component <any>{
       <div className="container" id="content-container">
         <div className="row justify-content-center">
           <form className="form-create-movie col-xs-12 col-sm-10 col-md-8 col-lg-6" onSubmit={this.createReimb}>
-            <h1 className="h3 mb-3 font-weight-normal">New Reimbursement Submission</h1>
+            <h1>New Reimbursement Submission</h1>
+            <br/>
             <label htmlFor="input-amount" className="sr-only">Amount</label>
             <input onChange={this.changes} name="amount" type="number" className="form-control" placeholder="Amount" />
             <br />
@@ -54,7 +55,7 @@ export class CreateReimbursementComponent extends React.Component <any>{
             <br />
             <div className="container">
               <div className="row justify-content-center">
-                <button className="btn btn-lg btn-primary btn-block" id="submit-button" type="submit">Submit</button>
+                <button id="submit-button" type="submit">Submit</button>
               </div>
             </div>
 

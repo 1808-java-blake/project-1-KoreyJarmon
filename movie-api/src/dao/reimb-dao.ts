@@ -6,11 +6,24 @@ import { SqlReimb } from "../dto/sql-reimb";
 /**
  * Retreive all movies from the database
  */
-export async function findAll(id): Promise<reimbursement[]> {
+export async function findAll(): Promise<reimbursement[]> {
   const client = await connectionPool.connect();
   try {
-    const resp = await client.query('SELECT * FROM ers.ers_reimbursement');
-    // const resp = await client.query('SELECT * FROM ers.ers_reimbursement WHERE reimb_author = $1',[id]);
+    const resp = await client.query(`
+    SELECT 
+    ers_reimbursement.reimb_id, ers_reimbursement.reimb_amount, ers_reimbursement.reimb_submitted, 
+    ers_reimbursement.reimb_resolved, ers_reimbursement.reimb_description, 
+    ers_reimbursement.reimb_resolver, 
+    ers_users.user_first_name
+    FROM 
+    ers.ers_reimbursement
+    LEFT JOIN 
+    ers.ers_users
+    ON 
+    ers_users.ers_users_id = ers_reimbursement.reimb_author
+    ORDER BY 
+    reimb_id;`);
+    
     return resp.rows.map(reimbConverter);
   } finally {
     client.release();
@@ -21,16 +34,16 @@ export async function findAll(id): Promise<reimbursement[]> {
  * Retreive a movie by its id
  * @param id 
  */
-export async function findById(id: number): Promise<reimbursement> {
+export async function findById(id): Promise<reimbursement[]> {
   const client = await connectionPool.connect();
   try {
-    const resp = await client.query('SELECT * FROM ers.ers_reimbursement WHERE reimb_author = $1' [id]);
-    let movie: SqlReimb = resp.rows[0];
-    if (movie !== undefined) {
-      return reimbConverter(movie);
-    } else {
-      return undefined;
-    }
+    const resp = await client.query('SELECT * FROM ers.ers_reimbursement WHERE reimb_author = $1', [id]);
+    // let reimb: SqlReimb = resp.rows[0];
+    // if (reimb !== undefined) {
+      return resp.rows.map(reimbConverter);
+    // } else {
+    //   return undefined;
+    // }
   } finally {
     client.release();
   }
@@ -45,7 +58,6 @@ export async function createReimbursement(reimbursement, id): Promise<number> {
   try {
     const respr = await client.query(`SELECT reimb_type_id FROM ers.ers_reimbursement_type 
       WHERE reimb_type = $1`,[ reimbursement.reimbursementType])
-      console.log('rembisjfdkljsklgfjdfkljlKLDSAJDFKLSJKKSDJLFKD');
     
       
       reimbursement.type_td = respr.rows[0].reimb_type_id;

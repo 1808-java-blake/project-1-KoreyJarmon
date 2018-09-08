@@ -84,8 +84,8 @@ export class SignInComponent extends React.Component<RouteComponentProps<{}>, an
 
     return (
       <form className="form-signin" onSubmit={this.submit}>
-        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-
+        <h1>Please Sign In</h1>
+        <br/>
         <label htmlFor="inputUsername" className="sr-only">Username</label>
         <input
           onChange={this.usernameChange}
@@ -95,6 +95,7 @@ export class SignInComponent extends React.Component<RouteComponentProps<{}>, an
           className="form-control"
           placeholder="Username"
           required />
+          <br />
 
         <label htmlFor="inputPassword" className="sr-only">Password</label>
         <input
@@ -105,8 +106,9 @@ export class SignInComponent extends React.Component<RouteComponentProps<{}>, an
           className="form-control"
           placeholder="Password"
           required />
+          <br />
 
-        <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button type="submit">Sign in</button>
         {errorMessage && <p id="error-message">{errorMessage}</p>}
       </form>
     );

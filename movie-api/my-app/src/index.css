@@ -2,4 +2,112 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: black;
+  background-image: url("bilgewater.jpg");
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100w;
+  height: 100h;
 }
+
+#approve-button {
+  width: 10em;
+}
+
+#deny-button {
+  width: 10em;
+}
+
+/***********************
+html fonts and colors
+***********************/
+
+h1 {
+  color: darkred;
+  font-family: serif;
+  background-color: #2f4f4fdb;
+  text-align: center;
+  box-shadow: 10px 15px;
+}
+
+button{
+  background-color: darkred;
+  color: whitesmoke;
+  padding: 2px 100px;
+  text-align: center;
+  font-size: xx-large;
+}
+
+table{
+  border-collapse: collapse;
+  background-color: #d6d6d6bf;
+  font-family: sans-serif;
+  color: darkred;
+  border-style: outset;
+}
+
+img{
+  height: 5em;
+}
+
+nav{
+  background-color: #1c3030db;
+  height: 5em;
+ 
+}
+ a{
+   color: salmon;
+   font-family: sans-serif;
+   font-size: large;
+ }
+
+/* .crossfade > figure {
+  animation: imageAnimation 30s linear infinite 0s;
+  backface-visibility: hidden;
+  background-size: cover;
+  background-position: center center;
+  color: transparent;
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 0;
+}
+
+.crossfade > figure:nth-child(1) { background-image: url('bilgewater.jpg'); }
+
+.crossfade > figure:nth-child(2) {
+  animation-delay: 6s;
+  background-image: url('bilgewater2.jpg');
+}
+
+.crossfade > figure:nth-child(3) {
+  animation-delay: 12s;
+  background-image: url('bilgewater3.jpg');
+}
+
+@keyframes 
+imageAnimation {  0% {
+ animation-timing-function: ease-in;
+ opacity: 0;
+}
+ 8% {
+ animation-timing-function: ease-out;
+ opacity: 1;
+}
+ 17% {
+ opacity: 1
+}
+ 25% {
+ opacity: 0
+}
+ 100% {
+ opacity: 0
+}
+} */
