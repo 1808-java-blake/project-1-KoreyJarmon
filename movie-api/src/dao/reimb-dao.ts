@@ -1,11 +1,8 @@
 import { connectionPool } from "../util/connection-util";
 import { reimbursement } from "../model/reimb";
 import { reimbConverter } from "../util/reimb-converter";
-import { SqlReimb } from "../dto/sql-reimb";
 
-/**
- * Retreive all movies from the database
- */
+
 export async function findAll(): Promise<reimbursement[]> {
   const client = await connectionPool.connect();
   try {
@@ -36,7 +33,7 @@ export async function findAll(): Promise<reimbursement[]> {
 }
 
 /**
- * Retreive a movie by its id
+ * 
  * @param id 
  */
 export async function findById(id): Promise<reimbursement[]> {
@@ -62,19 +59,14 @@ export async function findById(id): Promise<reimbursement[]> {
     WHERE reimb_author = $1
     ORDER BY 
     reimb_id;`, [id]);
-    // let reimb: SqlReimb = resp.rows[0];
-    // if (reimb !== undefined) {
-      return resp.rows.map(reimbConverter);
-    // } else {
-    //   return undefined;
-    // }
+    return resp.rows.map(reimbConverter);
   } finally {
     client.release();
   }
 }
 
 /**
- * Add a new movie to the DB
+ * 
  * @param reimbursement 
  */
 export async function createReimbursement(reimbursement, id): Promise<number> {

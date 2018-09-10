@@ -38,9 +38,6 @@ export const AppNav: React.StatelessComponent<{}> = () => {
               </a>
             </li>
           </ul>
-          <form className="form-inline my-2 my-md-0">
-            <input className="form-control" type="text" placeholder="Search" />
-          </form>
         </div>
       </nav>
     </div>

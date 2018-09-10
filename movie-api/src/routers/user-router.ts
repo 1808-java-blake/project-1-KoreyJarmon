@@ -6,37 +6,6 @@ import { authMiddleware } from '../security/authorization-middleware';
 // all routes defiend with this object will imply /movies
 export const userRouter = express.Router(); // routers represent a subset of routes for the express application
 
-/**
- * Find all users
- */
-userRouter.get('', async (req: Request, resp: Response) => {
-  try {
-    console.log('retrieving all users');
-    let users = await userDao.findAll();
-    resp.json(users);
-  } catch (err) {
-    console.log(err);
-    resp.sendStatus(500);
-  }
-});
-
-/**
- * Find user by id
- */
-userRouter.get('/:id', async (req, resp) => {
-  const id = +req.params.id; // convert the id to a number
-  console.log(`retreiving user with id  ${id}`)
-  try {
-    let user = await userDao.findById(id);
-    if (user !== undefined) {
-      resp.json(user);
-    } else {
-      resp.sendStatus(400);
-    }
-  } catch (err) {
-    resp.sendStatus(500);
-  }
-});
 
 /**
  * Add a new user

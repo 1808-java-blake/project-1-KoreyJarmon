@@ -14,7 +14,8 @@ export class HomeComponent extends React.Component<any, any>{
       reimb_author: 0,
       reimb_resolver: 0,
       reimb_status_id: 0,
-      reimb_type_id: 0
+      reimb_type_id: 0,
+      user_first_name: ""
     }
   }
 
@@ -79,13 +80,6 @@ export class HomeComponent extends React.Component<any, any>{
 
               </tbody>
             </table>
-            <div className="crossfade">
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-            </div>
-
-
           </div>
         </div>
       </div>
