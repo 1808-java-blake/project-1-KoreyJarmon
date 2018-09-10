@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-// interface IState {
-//   credentials: {
-//     password: string,
-//     username: string,
-//   },
-//   errorMessage: string
-// }
 
 export class SignInComponent extends React.Component<RouteComponentProps<{}>, any> {
 

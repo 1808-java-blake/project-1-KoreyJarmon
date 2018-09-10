@@ -6,7 +6,6 @@ import { AppNav } from './components/nav/nav.component';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { ClickerComponent } from './components/clicker/clicker.component';
 import { CreateReimbursementComponent } from './components/create-reimbursement/create-reimbursement.component';
 import { EditReimbursementComponent } from './components/edit-reimbursement/edit-reimbursement.component';
 
@@ -21,7 +20,6 @@ class App extends React.Component {
               <Route path="/sign-up" component={SignUpComponent} />
               <Route path="/home" component={HomeComponent} />
               <Route path="/sign-in" component={SignInComponent} />
-              <Route path="/clicker" component={ClickerComponent} />
               <Route path="/create-reimbursement" component={CreateReimbursementComponent} />
               <Route path="/edit-reimbursement" component={EditReimbursementComponent} />
               <Route component={SignInComponent} />

@@ -49,7 +49,8 @@ export class HomeComponent extends React.Component<any, any>{
       <td>${moment(this.state.reimb_submitted).format('MMMM Do YYYY, h:mm:ss a')}</td>
       <td>${moment(this.state.reimb_resolved).format('MMMM Do YYYY, h:mm:ss a')}</td>
       <td>${this.state.reimb_description}</td>
-      <td>${this.state.reimb_resolver}</td>
+      <td>${this.state.reimb_type}</td>
+      <td>${this.state.reimb_status}</td>
     </tr>
     `
   }
@@ -70,7 +71,8 @@ export class HomeComponent extends React.Component<any, any>{
                   <th scope="col">Time Submitted</th>
                   <th scope="col">Time Resolved</th>
                   <th scope="col">Description</th>
-                  <th scope="col">Resolver</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody id="reimb-table-body">

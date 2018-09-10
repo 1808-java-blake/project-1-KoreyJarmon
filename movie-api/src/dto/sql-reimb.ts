@@ -9,4 +9,6 @@ export class SqlReimb {
   reimb_status_id = 0;
   reimb_type_id = 0;
   user_first_name = '';
+  reimb_type = '';
+  reimb_status = '';
 }

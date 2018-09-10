@@ -3,13 +3,13 @@ import express from 'express';
 import * as reimbDao from '../dao/reimb-dao';
 import { authMiddleware } from '../security/authorization-middleware';
 
-// all routes defiend with this object will imply /movies
-export const reimbRouter = express.Router(); // routers represent a subset of routes for the express application
+
+export const reimbRouter = express.Router(); 
 
 
 
 reimbRouter.get('', [
-  //authMiddleware('admin', 'customer'),
+  authMiddleware(1),
   async (req: Request, resp: Response) => {
     try {
       let movies = await reimbDao.findAll();
@@ -22,7 +22,6 @@ reimbRouter.get('', [
 
 reimbRouter.get('/id', [
   async (req: Request, resp: Response) => {
-  //const id = +req.params.id; // convert the id to a number
   try {
     let reimb = await reimbDao.findById(req.session.user.ers_users_id);
     if (reimb !== undefined) {
@@ -37,15 +36,12 @@ reimbRouter.get('/id', [
 }]);
 
 
-/**
- * Create Movie
- */
+
 reimbRouter.post('', [
-  //authMiddleware('admin'),
+
   async (req, resp) => {
     try {
       const id = await reimbDao.createReimbursement(req.body, req.session.user.ers_users_id);
-      // const id = await movieDao.createReimbursement(req.body,4);
       resp.status(201);
       resp.json(id);
     } catch (err) {
@@ -55,7 +51,7 @@ reimbRouter.post('', [
   }])
 
   reimbRouter.post('/approve', [
-    //authMiddleware(1),
+   // authMiddleware(1),
     async (req: Request, resp: Response) => {
       try {
         console.log(req.body.choice);
@@ -67,7 +63,7 @@ reimbRouter.post('', [
     }]);
 
     reimbRouter.post('/deny', [
-      //authMiddleware(1),
+     // authMiddleware(1),
       async (req: Request, resp: Response) => {
         try {
           

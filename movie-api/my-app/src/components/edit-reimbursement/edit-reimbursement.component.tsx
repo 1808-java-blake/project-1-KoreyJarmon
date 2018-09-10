@@ -16,7 +16,8 @@ export class EditReimbursementComponent extends React.Component<any, any> {
       reimb_status_id: 0,
       reimb_type_id: 0,
       user_first_name:"",
-      choice:0
+      choice:0,
+      search:""
     }
   }
 
@@ -39,9 +40,10 @@ export class EditReimbursementComponent extends React.Component<any, any> {
       .then(res => res.json())
       .then(res => {
         res.forEach((reimb: any) => {
-          this.state = reimb;
-          this.addReimbToTable(this.state);
+          this.state = reimb
+           this.addReimbToTable(this.state);
         })
+        console.log(this.state)
       })
       .catch(err => {
         console.log(err);
@@ -58,14 +60,14 @@ export class EditReimbursementComponent extends React.Component<any, any> {
       <td>${moment(this.state.reimb_submitted).format('MMMM Do YYYY, h:mm:ss a')}</td>
       <td>${moment(this.state.reimb_resolved).format('MMMM Do YYYY, h:mm:ss a')}</td>
       <td>${this.state.reimb_description}</td>
-      <td>${this.state.reimb_resolver}</td>
+      <td>${this.state.reimb_type}</td>
+      <td>${this.state.reimb_status}</td>
     </tr>
     `
   }
 
   public approveReimbursement = (e: any) => {
     e.preventDefault();
-    //const choice = document.getElementById('input-description')
 
     fetch('http://localhost:9001/reimb/approve', {
       body: JSON.stringify( this.state ),
@@ -87,7 +89,6 @@ export class EditReimbursementComponent extends React.Component<any, any> {
   }
   public denyReimbursement = (e: any) => {
     e.preventDefault();
-    //const choice = document.getElementById('input-description');
 
     fetch('http://localhost:9001/reimb/deny', {
       body: JSON.stringify( this.state ),
@@ -107,10 +108,14 @@ export class EditReimbursementComponent extends React.Component<any, any> {
       });
 
   }
-
+  
+ 
+  
   public render() {
+
     return (
       <div>
+
         <h1>Manage Reimbursements</h1>
         <br/>
         <div className="row justify-content-center">
@@ -155,7 +160,8 @@ export class EditReimbursementComponent extends React.Component<any, any> {
                   <th scope="col">Time Submitted</th>
                   <th scope="col">Time Resolved</th>
                   <th scope="col">Description</th>
-                  <th scope="col">Resolver</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody id="reimb-table-body">

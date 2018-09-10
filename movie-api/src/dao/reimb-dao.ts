@@ -11,16 +11,21 @@ export async function findAll(): Promise<reimbursement[]> {
   try {
     const resp = await client.query(`
     SELECT 
-    ers_reimbursement.reimb_id, ers_reimbursement.reimb_amount, ers_reimbursement.reimb_submitted, 
-    ers_reimbursement.reimb_resolved, ers_reimbursement.reimb_description, 
-    ers_reimbursement.reimb_resolver, 
-    ers_users.user_first_name
+    reimb_id, reimb_amount, reimb_submitted,reimb_resolved, reimb_description, reimb_type, reimb_status, user_first_name
     FROM 
     ers.ers_reimbursement
     LEFT JOIN 
     ers.ers_users
     ON 
     ers_users.ers_users_id = ers_reimbursement.reimb_author
+	  INNER JOIN
+	  ers.ers_reimbursement_status
+	  ON
+	  ers_reimbursement.reimb_status_id = ers_reimbursement_status.reimb_status_id
+	  INNER JOIN
+	  ers.ers_reimbursement_type
+	  ON
+	  ers_reimbursement.reimb_type_id = ers_reimbursement_type.reimb_type_id
     ORDER BY 
     reimb_id;`);
     
@@ -37,7 +42,26 @@ export async function findAll(): Promise<reimbursement[]> {
 export async function findById(id): Promise<reimbursement[]> {
   const client = await connectionPool.connect();
   try {
-    const resp = await client.query('SELECT * FROM ers.ers_reimbursement WHERE reimb_author = $1', [id]);
+    const resp = await client.query(`
+    SELECT 
+    reimb_id, reimb_amount, reimb_submitted,reimb_resolved, reimb_description, reimb_type, reimb_status
+    FROM 
+    ers.ers_reimbursement
+    LEFT JOIN 
+    ers.ers_users
+    ON 
+    ers_users.ers_users_id = ers_reimbursement.reimb_author
+    INNER JOIN
+    ers.ers_reimbursement_status
+    ON
+    ers_reimbursement.reimb_status_id = ers_reimbursement_status.reimb_status_id
+    INNER JOIN
+    ers.ers_reimbursement_type
+    ON
+    ers_reimbursement.reimb_type_id = ers_reimbursement_type.reimb_type_id
+    WHERE reimb_author = $1
+    ORDER BY 
+    reimb_id;`, [id]);
     // let reimb: SqlReimb = resp.rows[0];
     // if (reimb !== undefined) {
       return resp.rows.map(reimbConverter);

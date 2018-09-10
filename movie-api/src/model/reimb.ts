@@ -9,10 +9,12 @@ export class reimbursement {
   reimb_status_id = 0;
   reimb_type_id = 0;
   user_first_name = '';
+  reimb_type = '';
+  reimb_status = '';
 
   constructor(reimb_id?: number, reimb_amount?: number, reimb_sumbitted?: number, reimb_resolved?: number, 
     reimb_description?: string, reimb_author?: number, reimb_resolver?: number, reimb_status_id?: number,
-    reimb_type_id?: number, user_first_name?: string) {
+    reimb_type_id?: number, user_first_name?: string, reimb_type?: string, reimb_status?: string) {
       reimb_id = this.reimb_id = reimb_id;
       reimb_amount = this.reimb_amount = reimb_amount;
       reimb_sumbitted = this.reimb_submitted = reimb_sumbitted;
@@ -23,5 +25,7 @@ export class reimbursement {
       reimb_status_id = this.reimb_status_id = reimb_status_id;
       reimb_type_id = this.reimb_type_id = reimb_type_id;
       user_first_name = this.user_first_name = user_first_name;
+      reimb_type = this.reimb_type = reimb_type;
+      reimb_status = this.reimb_status = reimb_status;
   }
 }
